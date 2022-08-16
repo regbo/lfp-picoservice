@@ -1,18 +1,40 @@
 package de.adito.picoservice.processor;
 
-import de.adito.picoservice.PicoService;
-
-import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
-import javax.tools.*;
-import java.io.*;
-import java.lang.annotation.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.*;
-import java.util.*;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.QualifiedNameable;
+import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
+import javax.tools.FileObject;
+import javax.tools.StandardLocation;
+
+import de.adito.picoservice.PicoService;
 
 /**
  * Generates instances of {@link de.adito.picoservice.IPicoRegistration} and the corresponding service entries in the
@@ -200,7 +222,10 @@ public class AnnotationProcessorPico extends AbstractProcessor
       while (element != null)
       {
         if (element.getKind() == ElementKind.PACKAGE)
-          return element.toString();
+			if (element instanceof QualifiedNameable)
+				return ((QualifiedNameable) element).getQualifiedName().toString();
+			else
+				return element.toString();
         Element enclosingElement = element.getEnclosingElement();
         if (ENCLOSING_TYPES.contains(enclosingElement.getKind()))
           element = enclosingElement;
