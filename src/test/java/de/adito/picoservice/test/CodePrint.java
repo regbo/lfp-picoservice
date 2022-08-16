@@ -9,28 +9,31 @@ public class CodePrint {
 
 	public static void main(String[] args) {
 		//@formatter:off
-		String template = "package {0};\n"
+		String template = ""
+				+ "package {0};\n"
 				+ "\n"
 				+ "import de.adito.picoservice.IPicoRegistration;\n"
 				+ "\n"
 				+ "import {4};\n"
 				+ "\n"
 				+ "@Generated(value = \"de.adito.picoservice.processor.AnnotationProcessorPico\", date = \"{3}\")\n"
-				+ "public enum {1} implements IPicoRegistration\n"
+				+ "public class {1} implements IPicoRegistration\n"
 				+ "'{'\n"
-				+ "  INSTANCE;\n"
+				+ "  \n"
+				+ "  private static final {1} INSTANCE=new {1}();\n"
 				+ "  \n"
 				+ "  public static {1} provider()\n"
 				+ "  '{'\n"
-				+ "    return {1}.INSTANCE;  \n"
+				+ "    return INSTANCE;  \n"
 				+ "  '}'\n"
-				+ "  \n"
+				+ "\n"
 				+ "  @Override\n"
 				+ "  public Class<?> getAnnotatedClass()\n"
 				+ "  '{'\n"
 				+ "    return {2}.class;\n"
 				+ "  '}'\n"
 				+ "'}'\n"
+				+ ""
 				+ "";
 		//@formatter:on
 		int javaVersion = 11;
