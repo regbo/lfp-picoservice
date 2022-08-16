@@ -47,6 +47,7 @@ import de.adito.picoservice.PicoService;
 public class AnnotationProcessorPico extends AbstractProcessor
 {
   private static final String PICO_POSTFIX = "PicoService";
+//@formatter:off
   private static final String REGISTRATION_TEMPLATE = "package {0};\n" +
       "\n" +
       "import de.adito.picoservice.IPicoRegistration;\n" +
@@ -62,6 +63,7 @@ public class AnnotationProcessorPico extends AbstractProcessor
       "    return {2}.class;\n" +
       "  '}'\n" +
       "'}'";
+  //@formatter:on
   private static final String SERVICE_REGISTRATION_PATH = "META-INF/services/de.adito.picoservice.IPicoRegistration";
   private static final List<ElementKind> ENCLOSING_TYPES =
       Arrays.asList(ElementKind.PACKAGE, ElementKind.CLASS, ElementKind.INTERFACE, ElementKind.ENUM);
