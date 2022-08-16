@@ -48,21 +48,30 @@ public class AnnotationProcessorPico extends AbstractProcessor
 {
   private static final String PICO_POSTFIX = "PicoService";
 //@formatter:off
-  private static final String REGISTRATION_TEMPLATE = "package {0};\n" +
-      "\n" +
-      "import de.adito.picoservice.IPicoRegistration;\n" +
-      "\n" +
-      "import {4};\n" +
-      "\n" +
-      "@Generated(value = \"de.adito.picoservice.processor.AnnotationProcessorPico\", date = \"{3}\")\n" +
-      "public class {1} implements IPicoRegistration\n" +
-      "'{'\n" +
-      "  @Override\n" +
-      "  public Class<?> getAnnotatedClass()\n" +
-      "  '{'\n" +
-      "    return {2}.class;\n" +
-      "  '}'\n" +
-      "'}'";
+  private static final String REGISTRATION_TEMPLATE = ""
+  		+ "package {0};\r\n"
+  		+ "\r\n"
+  		+ "import de.adito.picoservice.IPicoRegistration;\r\n"
+  		+ "\r\n"
+  		+ "import {4};\r\n"
+  		+ "\r\n"
+  		+ "@Generated(value = \"de.adito.picoservice.processor.AnnotationProcessorPico\", date = \"{3}\")\r\n"
+  		+ "public enum {1} implements IPicoRegistration\r\n"
+  		+ "'{'\r\n"
+  		+ "  INSTANCE;\r\n"
+  		+ "  \r\n"
+  		+ "  public static {1} provider()\r\n"
+  		+ "  '{'\r\n"
+  		+ "    return {1}.INSTANCE;  \r\n"
+  		+ "  '}'\r\n"
+  		+ "  \r\n"
+  		+ "  @Override\r\n"
+  		+ "  public Class<?> getAnnotatedClass()\r\n"
+  		+ "  '{'\r\n"
+  		+ "    return {2}.class;\r\n"
+  		+ "  '}'\r\n"
+  		+ "'}'"
+  		+ "";
   //@formatter:on
   private static final String SERVICE_REGISTRATION_PATH = "META-INF/services/de.adito.picoservice.IPicoRegistration";
   private static final List<ElementKind> ENCLOSING_TYPES =
