@@ -52,6 +52,7 @@ public class AnnotationProcessorPico extends AbstractProcessor
   		+ "package {0};\r\n"
   		+ "\r\n"
   		+ "import de.adito.picoservice.IPicoRegistration;\r\n"
+  		+ "import java.util.Objects;\r\n"
   		+ "import {4};\r\n"
   		+ "\r\n"
   		+ "@Generated(value = \"de.adito.picoservice.processor.AnnotationProcessorPico\", date = \"{3}\")\r\n"
@@ -73,7 +74,26 @@ public class AnnotationProcessorPico extends AbstractProcessor
   		+ "	public Class<?> getAnnotatedClass() '{'\r\n"
   		+ "		return {2}.class;\r\n"
   		+ "	'}'\r\n"
-  		+ "'}'";
+  		+ "	\r\n"
+  		+ "	@Override\r\n"
+  		+ "	public int hashCode() '{'\r\n"
+  		+ "		return Objects.hash({1}.class, getAnnotatedClass());\r\n"
+  		+ "	'}'\r\n"
+  		+ "\r\n"
+  		+ "	@Override\r\n"
+  		+ "	public boolean equals(Object obj) '{'\r\n"
+  		+ "		if (this == obj)\r\n"
+  		+ "			return true;\r\n"
+  		+ "		if (obj == null)\r\n"
+  		+ "			return false;\r\n"
+  		+ "		if ({1}.class != obj.getClass())\r\n"
+  		+ "			return false;\r\n"
+  		+ "		{1} other = ({1}) obj;\r\n"
+  		+ "		return Objects.equals(getAnnotatedClass(), other.getAnnotatedClass());\r\n"
+  		+ "	'}'\r\n"
+  		+ "	\r\n"
+  		+ "'}'"
+  		+ "";
   //@formatter:on
   private static final String SERVICE_REGISTRATION_PATH = "META-INF/services/de.adito.picoservice.IPicoRegistration";
   private static final List<ElementKind> ENCLOSING_TYPES =
