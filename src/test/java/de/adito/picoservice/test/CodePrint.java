@@ -1,41 +1,21 @@
 package de.adito.picoservice.test;
 
+import java.lang.reflect.Field;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.adito.picoservice.processor.AnnotationProcessorPico;
+
 public class CodePrint {
 	private static final Class<?> THIS_CLASS = new Object() {}.getClass().getEnclosingClass();
 
-	public static void main(String[] args) {
-		//@formatter:off
-		String template = ""
-				+ "package {0};\n"
-				+ "\n"
-				+ "import de.adito.picoservice.IPicoRegistration;\n"
-				+ "\n"
-				+ "import {4};\n"
-				+ "\n"
-				+ "@Generated(value = \"de.adito.picoservice.processor.AnnotationProcessorPico\", date = \"{3}\")\n"
-				+ "public class {1} implements IPicoRegistration\n"
-				+ "'{'\n"
-				+ "  \n"
-				+ "  private static final {1} INSTANCE=new {1}();\n"
-				+ "  \n"
-				+ "  public static {1} provider()\n"
-				+ "  '{'\n"
-				+ "    return INSTANCE;  \n"
-				+ "  '}'\n"
-				+ "\n"
-				+ "  @Override\n"
-				+ "  public Class<?> getAnnotatedClass()\n"
-				+ "  '{'\n"
-				+ "    return {2}.class;\n"
-				+ "  '}'\n"
-				+ "'}'\n"
-				+ ""
-				+ "";
-		//@formatter:on
+	public static void main(String[] args)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field field = AnnotationProcessorPico.class.getDeclaredField("REGISTRATION_TEMPLATE");
+		field.setAccessible(true);
+		String template = (String) field.get(null);
+		System.out.println(template);
 		int javaVersion = 11;
 		String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ").format(new Date());
 		String importString = javaVersion >= 9 ? "javax.annotation.processing.Generated" : "javax.annotation.Generated";

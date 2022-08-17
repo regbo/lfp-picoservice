@@ -57,19 +57,23 @@ public class AnnotationProcessorPico extends AbstractProcessor
   		+ "@Generated(value = \"de.adito.picoservice.processor.AnnotationProcessorPico\", date = \"{3}\")\r\n"
   		+ "public class {1} implements IPicoRegistration '{'\r\n"
   		+ "\r\n"
-  		+ "	private static final {1} INSTANCE = new {1}();\r\n"
+  		+ "	private static final Object INSTANCE_MUTEX = new Object();\r\n"
+  		+ "	private static {1} _INSTANCE;\r\n"
   		+ "\r\n"
   		+ "	public static {1} provider() '{'\r\n"
-  		+ "		return INSTANCE;\r\n"
+  		+ "			if (_INSTANCE == null)\r\n"
+  		+ "			synchronized (INSTANCE_MUTEX) '{'\r\n"
+  		+ "				if (_INSTANCE == null)\r\n"
+  		+ "					_INSTANCE = new ServiceDef();\r\n"
+  		+ "			'}'\r\n"
+  		+ "		return _INSTANCE;\r\n"
   		+ "	'}'\r\n"
   		+ "\r\n"
   		+ "	@Override\r\n"
   		+ "	public Class<?> getAnnotatedClass() '{'\r\n"
   		+ "		return {2}.class;\r\n"
   		+ "	'}'\r\n"
-  		+ "'}'\r\n"
-  		+ ""
-  		+ "";
+  		+ "'}'";
   //@formatter:on
   private static final String SERVICE_REGISTRATION_PATH = "META-INF/services/de.adito.picoservice.IPicoRegistration";
   private static final List<ElementKind> ENCLOSING_TYPES =
