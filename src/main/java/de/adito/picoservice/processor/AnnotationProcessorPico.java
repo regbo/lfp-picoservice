@@ -62,7 +62,7 @@ public class AnnotationProcessorPico extends AbstractProcessor
   		+ "	private static {1} _INSTANCE;\r\n"
   		+ "\r\n"
   		+ "	public static {1} provider() '{'\r\n"
-  		+ "			if (_INSTANCE == null)\r\n"
+  		+ "		if (_INSTANCE == null)\r\n"
   		+ "			synchronized (INSTANCE_MUTEX) '{'\r\n"
   		+ "				if (_INSTANCE == null)\r\n"
   		+ "					_INSTANCE = new {1}();\r\n"
