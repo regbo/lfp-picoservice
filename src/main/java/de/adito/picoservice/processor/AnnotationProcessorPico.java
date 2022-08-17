@@ -65,7 +65,7 @@ public class AnnotationProcessorPico extends AbstractProcessor
   		+ "			if (_INSTANCE == null)\r\n"
   		+ "			synchronized (INSTANCE_MUTEX) '{'\r\n"
   		+ "				if (_INSTANCE == null)\r\n"
-  		+ "					_INSTANCE = new ServiceDef();\r\n"
+  		+ "					_INSTANCE = new {1}();\r\n"
   		+ "			'}'\r\n"
   		+ "		return _INSTANCE;\r\n"
   		+ "	'}'\r\n"
